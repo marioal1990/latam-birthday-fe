@@ -1,0 +1,78 @@
+<mat-card class="example-card">
+    <mat-card-header>
+        <mat-card-title>VER PERSONAS</mat-card-title>
+        <mat-card-subtitle>A continuación se mostrarán las personas agregadas en una tabla. Para actualizar la tabla, se
+            debe presionar el botón atualizar (azul redondo)</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+        <div class="example-button-container">
+            <button mat-raised-button color="primary" aria-label="Actualizar tabla" (click)="updateTablePersons()">
+                <mat-icon>update</mat-icon>
+            </button>
+        </div>
+
+        <mat-form-field *ngIf="dataSource.data.length > 0">
+            <mat-label>Filtro</mat-label>
+            <input matInput (keyup)="applyFilter($event)" placeholder="Escriba alguna palabra">
+        </mat-form-field>
+
+        <div class="mat-elevation-z8" *ngIf="dataSource.data.length > 0">
+            <table mat-table [dataSource]="dataSource" *ngIf="dataSource.data.length > 0" matSort>
+
+                <!-- ID Column -->
+                <ng-container matColumnDef="id">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+                    <td mat-cell *matCellDef="let row"> {{row.id}} </td>
+                </ng-container>
+
+                <!-- Name Column -->
+                <ng-container matColumnDef="name">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre </th>
+                    <td mat-cell *matCellDef="let row"> {{row.name}} </td>
+                </ng-container>
+
+                <!-- LastName Column -->
+                <ng-container matColumnDef="lastName">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Apellido </th>
+                    <td mat-cell *matCellDef="let row"> {{row.lastName}} </td>
+                </ng-container>
+
+                <!-- Birthday Column -->
+                <ng-container matColumnDef="birthday">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Cumpleaños </th>
+                    <td mat-cell *matCellDef="let row"> {{row.birthday}} </td>
+                </ng-container>
+
+                <!-- Age Column -->
+                <ng-container matColumnDef="age">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Edad </th>
+                    <td mat-cell *matCellDef="let row"> {{row.age}} </td>
+                </ng-container>
+
+                <!-- Poem Column -->
+                <ng-container matColumnDef="poem">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Poema </th>
+                    <td mat-cell *matCellDef="let row">
+                        <div class="truncate">{{row.poem}}</div>
+                    </td>
+                </ng-container>
+
+                <!-- Days Left Column -->
+                <ng-container matColumnDef="daysLeft">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Días Faltantes </th>
+                    <td mat-cell *matCellDef="let row"> {{row.daysLeft}} </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+                </tr>
+            </table>
+
+            <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+        </div>
+
+        <div *ngIf="dataSource.data.length === 0">
+            Tabla vacia
+        </div>
+    </mat-card-content>
+</mat-card>
